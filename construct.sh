@@ -1,1 +1,1 @@
-./tarql/target/appassembler/bin/tarql --delimiter semicolon construct.sparql donnees.csv > donnees.rdf
+./tarql/target/appassembler/bin/tarql --delimiter semicolon construct.sparql donnees.csv > donnees.ttl
