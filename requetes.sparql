@@ -13,7 +13,7 @@ WHERE {
 }
 GROUP BY ?statut
 
-#Liste de tous les comptes LinkedIn des institutions d'Île-de-France, si ils existent
+#Liste de tous les comptes LinkedIn des institutions d'Île-de-France, s'ils existent
 
 SELECT ?uri_linkedin
 WHERE
