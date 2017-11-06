@@ -1,6 +1,6 @@
 PREFIX projet: <http://websm.org/projet>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 #Twitter
@@ -36,13 +36,13 @@ CONSTRUCT {
     projet:libelle_court ?libelle_court;
     projet:libelle_long ?libelle_long;
     projet:statut_juridique_court ?statut_juridique_court;
-    ns:street-address ?adresse;
+    vcard:street-address ?adresse;
     projet:complement_adresse ?complement_adresse;
-    ns:postal-code ?code_postal;
-    ns:locality ?localite;
-    ns:latitude ?latitude;
-    ns:longitude ?longitude;
-    ns:url ?site_internet;
+    vcard:postal-code ?code_postal;
+    vcard:locality ?localite;
+    vcard:latitude ?latitude;
+    vcard:longitude ?longitude;
+    vcard:url ?site_internet;
     foaf:account ?uri_twitter;
     foaf:account ?uri_linkedin;
     projet:identifiant_freebase ?identifiant_freebase;
