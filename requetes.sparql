@@ -1,0 +1,25 @@
+PREFIX projet: <http://websm.org/projet>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+#Liste de toutes les institutions qui financent la recherche et l'enseignement supérieur
+
+SELECT ?libelle_court, ?libelle_long
+WHERE {
+  ?x rdf:type projet:Institution;
+  ?x projet:libelle_court ?libelle_court;
+  ?x projet:libelle_long ?libelle_long;
+  ?x projet:libelle_mission_chef_de_file "Recherche et enseignement supérieur"
+}
+
+#Liste de tous les comptes LinkedIn des institutions d'Île-de-France, si ils existent
+
+SELECT ?uri_linkedin
+WHERE
+{
+  ?x rdf:type projet:Institution;
+  ?x foaf:account ?uri_linkedin;
+  ?uri_linkedin rdf:type foaf:OnlineAccount;
+  ?uri_linkedin foaf:accountServiceHomepage "http://www.linkedin.com/";
+}
