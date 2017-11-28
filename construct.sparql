@@ -2,6 +2,8 @@ PREFIX projet: <http://websm.org/projet/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbpedia-fr: <http://fr.dbpedia.org/resource/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 #Twitter
 CONSTRUCT {
@@ -39,7 +41,7 @@ CONSTRUCT {
     vcard:street-address ?adresse;
     projet:complement_adresse ?complement_adresse;
     vcard:postal-code ?code_postal;
-    vcard:locality ?localite;
+    vcard:locality ?uri_localite;
     vcard:latitude ?latitude;
     vcard:longitude ?longitude;
     vcard:url ?site_internet;
@@ -58,12 +60,13 @@ CONSTRUCT {
     projet:uucr_id ?uucr_id;
     projet:uucr_nom ?uucr_nom;
     projet:dep_id ?dep_id;
-    projet:dep_nom ?dep_nom;
+    projet:dep ?uri_dep_nom;
     projet:aca_id ?aca_id;
-    projet:aca_nom ?aca_nom;
+    projet:aca ?uri_aca_nom;
     projet:reg_id ?reg_id;
-    projet:reg_nom ?reg_nom;
+    projet:reg ?uri_reg_nom;
     projet:numero_siren_siret_uai ?numero_siren_siret_uai;
+    owl:sameAs ?sameAs;
 }
 
 FROM <file:donnees.csv>
@@ -73,4 +76,9 @@ WHERE {
   BIND (REPLACE(?geolocalisation, ', [0-9\\.]*', '') as ?latitude)
   BIND (URI(?compte_twitter) as ?uri_twitter)
   BIND (URI(?compte_linkedin) as ?uri_linkedin)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?localite, "\\s+", "_"))) as ?uri_localite)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?dep_nom, "\\s+", "_"))) as ?uri_dep_nom)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?aca_nom, "\\s+", "_"))) as ?uri_aca_nom)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?reg_nom, "\\s+", "_"))) as ?uri_reg_nom)
+  BIND(URI(CONCAT("http://localhost:3333/", ?libelle_long)) as ?sameAs)
 }
