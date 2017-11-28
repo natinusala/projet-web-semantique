@@ -4,6 +4,35 @@ PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dbpedia-fr: <http://fr.dbpedia.org/resource/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+#Régions
+CONSTRUCT
+{
+  ?URI a projet:Region;
+    owl:sameAs ?sameAs;
+    rdf:label ?label
+}
+FROM <file:donnees.csv>
+WHERE {
+  BIND (URI(CONCAT("projet:", REPLACE(?reg_nom, "\\s+", "_"))) as ?URI)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?reg_nom, "\\s+", "_"))) as ?sameAs)
+  BIND (REPLACE(?reg_nom, "\\s+", "_") as ?label)
+}
+
+#Départements
+CONSTRUCT
+{
+  ?URI a projet:Departement;
+    owl:sameAs ?sameAs;
+    rdf:label ?label
+}
+FROM <file:donnees.csv>
+WHERE {
+  BIND (URI(CONCAT("projet:", REPLACE(?dep_nom, "\\s+", "_"))) as ?URI)
+  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?dep_nom, "\\s+", "_"))) as ?sameAs)
+  BIND (REPLACE(?dep_nom, "\\s+", "_") as ?label)
+}
 
 #Twitter
 CONSTRUCT {
@@ -77,8 +106,8 @@ WHERE {
   BIND (URI(?compte_twitter) as ?uri_twitter)
   BIND (URI(?compte_linkedin) as ?uri_linkedin)
   BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?localite, "\\s+", "_"))) as ?uri_localite)
-  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?dep_nom, "\\s+", "_"))) as ?uri_dep_nom)
   BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?aca_nom, "\\s+", "_"))) as ?uri_aca_nom)
-  BIND (URI(CONCAT("dbpedia-fr:", REPLACE(?reg_nom, "\\s+", "_"))) as ?uri_reg_nom)
-  BIND(URI(CONCAT("http://localhost:3333/", ?libelle_long)) as ?sameAs)
+  BIND (URI(CONCAT("http://localhost:3333/", ?libelle_long)) as ?sameAs)
+  BIND (URI(CONCAT("projet:", REPLACE(?reg_nom, "\\s+", "_"))) as ?uri_reg_nom)
+  BIND (URI(CONCAT("projet:", REPLACE(?dep_nom, "\\s+", "_"))) as ?uri_dep_nom)
 }
